@@ -46,6 +46,10 @@ It was the best of times, it was the worst of times, it was the age of wisdom, i
   <script>
 
 $('document').ready(function () {
+  var $searchField = $('#search-term');
+  var $inputText = $('#input-text');
+  var $outputText = $('#output-text');
+
   // Make jQuery :contains selector case insensitive
   $.expr[":"].contains = $.expr.createPseudo(function(arg) {
     return function( elem ) {
@@ -53,10 +57,7 @@ $('document').ready(function () {
     };
   });
 
-  var $searchField = $('#search-term');
-  var $inputText = $('#input-text');
-  var $outputText = $('#output-text');
-  $('#search-term').on('input', function() {
+  function performHighlight() {
     $outputText.empty();
     var searchText = $searchField.val();
     var words = $inputText.text().split(" ");
@@ -69,7 +70,13 @@ $('document').ready(function () {
       $div.find(':contains(' + searchText + ')').addClass('highlight');
     }
     $outputText.append($div);
+  }
+
+  $('#search-term').on('input', function() {
+    performHighlight();
   });
+
+  performHighlight();
 });
 </script>
 
