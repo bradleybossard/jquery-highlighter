@@ -59,8 +59,9 @@ $('document').ready(function () {
 
   function performHighlight() {
     $outputText.empty();
+    console.log('empty');
     var searchText = $searchField.val();
-    var words = $inputText.text().split(" ");
+    var words = $inputText.val().split(" ");
     var $div = $('<div></div>');
     $.each(words, function(i, v) {
       $div.append($("<span>").text(v));
@@ -72,7 +73,7 @@ $('document').ready(function () {
     $outputText.append($div);
   }
 
-  $('#search-term').on('input', function() {
+  $('#search-term, #input-text').on('input', function() {
     performHighlight();
   });
 
