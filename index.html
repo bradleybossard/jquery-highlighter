@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    textarea {
+      width: 100%;
+      height: 300px;
+    }
+
+    .highlight {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <input id="search-term"></input>
+  <textarea id="input-text">Big bad broken bears</textarea>
+  <div id="output-text"></div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script> 
+
+  <script>
+
+$('document').ready(function () {
+  // Make jQuery :contains selector case insensitive
+  $.expr[":"].contains = $.expr.createPseudo(function(arg) {
+    return function( elem ) {
+      return $(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+    };
+  });
+
+  var $searchText = $('#search-term');
+  var $inputText = $('#input-text');
+  var $outputText = $('#output-text');
+  $('#search-term').on('input', function() {
+    var words = $inputText.text().split(" ");
+    $outputText.empty();
+    var $div = $('<div></div>');
+    $.each(words, function(i, v) {
+      $div.append($("<span>").text(v));
+      $div.append($("<span>").text(' '));
+    });
+    $div.find(':contains(' + $searchText.val() + ')').addClass('highlight');
+    $outputText.append($div);
+  });
+});
+
+  </script>
+</body>
+</html>
